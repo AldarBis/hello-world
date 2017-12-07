@@ -1,13 +1,11 @@
 def polindrome?(string)
-string = string.downcase.delete("^a-z&&^а-я")
-puts string
-str1 = string.reverse
-puts str1
-if string == str1 && !string.empty?
-puts "palindrome"
-else
-puts "Not polindrome"
-end
+  string = string.downcase.delete("^a-z&&^а-я")
+  str_rev = string.reverse
+ if string == str_rev && !string.empty?
+  puts "Polindrome"
+ else
+  puts "No polindrome"
+ end
 end
 
 require "rubygems"
