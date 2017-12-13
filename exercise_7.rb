@@ -1,73 +1,47 @@
-class Fixnum
- def dollar
-    trans = {
-	:dollar => self
-	}
-	end
+
+module Currency
+  def dollar
+   array = [0.74,32.26,1, self]
+  end
+	alias :dollars :dollar
+	
   def euro
-    trans = {
-	:euro => self
-	}
+   array = [1,43.61,1.35, self]
+   
   end
-  def ruble
-    trans = {
-	:ruble => self
-	}
-  end
+    alias :euros :euro
   
+  def ruble
+    array = [0.23,1,0.03, self]
+	
+  end
+  alias :rubles :ruble
+  
+  def in(curr)
+    case curr
+	   when :dollar, :dollars
+	    puts self[2]*self[3] 
+	   when :euro, :euros
+	    puts self[0]*self[3]
+	   when :ruble, :rubles
+	    puts self[1]*self[3]
+	  	
+    end
+end
 end
 
-class Hash
-  def in(h)
-  if self.keys[0] == :dollar
-    case h
-       when :dollar
-         puts "#{self.values[0]} #{h.to_s}"
-   
-       when :ruble
-         puts "#{self.values[0]*32.26} #{h.to_s}"
-	 
-	   when :euro
-	     puts "#{self.values[0]*1.35} #{h.to_s}"
-	   
-	end
-	end
-	if self.keys[0] == :euro
-	case h
-       when :dollar
-         puts "#{self.values[0]*1.35} #{h.to_s}"
-   
-       when :ruble
-         puts "#{self.values[0]*43.61} #{h.to_s}"
-	 
-	   when :euro
-	     puts "#{self.values[0]} #{h.to_s}"
-		 end
-		 end
-		 if self.keys[0] == :ruble
-	case h
-       when :dollar
-         puts "#{self.values[0]*0.3} #{h.to_s}"
-   
-       when :ruble
-         puts "#{self.values[0]} #{h.to_s}"
-	 
-	   when :euro
-	     puts "#{self.values[0]*0.23} #{h.to_s}"
-		 end
-		 end
-   end
-  end
 
-1.dollar.in(:dollar)
-1.dollar.in(:ruble)
-1.dollar.in(:euro)
-1.euro.in(:euro)
-1.euro.in(:dollar)
-1.euro.in(:ruble)
-2.ruble.in(:dollar)
-2.rubles.in(:euro)
-2.ruble.in(:ruble)
+class Fixnum
+ include Currency
+end
+class Array
+ include Currency
+end
+
+5.dollars.in(:euros)
+10.euros.in(:rubles)
+1.dollar.in(:rubles)
+1.ruble.in(:euro)
 
 
 
