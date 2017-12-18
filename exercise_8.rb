@@ -2,10 +2,10 @@
 
 
 class Class
-def initialize 
-    @data = nil 
+  def initialize 
+    @bar = nil 
   end 
-  $arr = [nil] 
+    $arr = [nil] 
   def my_attr_reader(var_name) 
     define_method(var_name) do 
       instance_variable_get("@#{var_name}") 
@@ -14,9 +14,6 @@ def initialize
   def my_attr_writer(var_name) 
     define_method("#{var_name}=") do |new_value| 
       instance_variable_set("@#{var_name}", new_value)
-      if self.changed
-        $arr = [nil] 
-		end
       $arr.push(new_value) 
     end 
   end 
@@ -24,8 +21,7 @@ def initialize
   
   def my_attr_accessor_with_history(var_name)
     class_eval do 
-	def data_history 
-	
+	def bar_history 
       print $arr 
 	  end
     end 
@@ -34,19 +30,13 @@ def initialize
   end
 end
 
-class Entity 
-  my_attr_accessor_with_history :data
+class Foo 
+  my_attr_accessor_with_history :bar
 end 
 
+f = Foo.new 
+f.bar = 3
+f.bar = :wowzo 
+f.bar = 'boo!'
+f.bar_history
 
-entity = Entity.new 
-entity.data_history
-entity.data = 1 
-entity.data = :wss 
-entity.data = 'boo!' 
-entity.data = :ccccc 
-entity.data_history 
-g = Entity.new
-g.data = 21
-g.data = 31
-g.data_history
