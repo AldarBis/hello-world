@@ -1,42 +1,52 @@
+class Class 
+ def attr_accessor_with_history(attr_name) 
+  attr_reader attr_name
+  class_eval %Q{ 
+    def self.my_attr_writer(attr_name) 
+      @@arr = [nil]
+       
+check = 0
+flag = false
 
+    define_method("#{attr_name}=") do |new_value| 
+	  
+	  if self != check && flag
+	   @@arr = [nil]
+	   flag = false
+	   else
+	   check = self
+	   flag = true
+	   end
+	  
+	  
+      instance_variable_set("@#{attr_name}", new_value) 
+      @@arr.push(instance_variable_get("@#{attr_name}")) 
 
+     end 
+     end 
+def bar_history 
+print @@arr 
+end 
+} 
+my_attr_writer attr_name 
+end 
+end 
 
-class Class
-  def initialize 
-    @bar = nil 
-  end 
-    $arr = [nil] 
-  def my_attr_reader(var_name) 
-    define_method(var_name) do 
-      instance_variable_get("@#{var_name}") 
-    end 
-  end 
-  def my_attr_writer(var_name) 
-    define_method("#{var_name}=") do |new_value| 
-      instance_variable_set("@#{var_name}", new_value)
-      $arr.push(new_value) 
-    end 
-  end 
-  
-  
-  def my_attr_accessor_with_history(var_name)
-    class_eval do 
-	def bar_history 
-      print $arr 
-	  end
-    end 
-    my_attr_reader var_name 
-    my_attr_writer var_name
-  end
-end
 
 class Foo 
-  my_attr_accessor_with_history :bar
+attr_accessor_with_history :bar 
 end 
 
 f = Foo.new 
-f.bar = 3
+f.bar = 3 
 f.bar = :wowzo 
-f.bar = 'boo!'
-f.bar_history
+f.bar = 'boo!' 
+f.bar = 343
+f.bar_history 
+
+g = Foo.new 
+g.bar = 31 
+g.bar = 2 
+g.bar = 'Caramba!'
+g.bar_history
 
