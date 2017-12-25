@@ -1,7 +1,9 @@
 class Desert
   attr_accessor :name
   attr_accessor :calories
-  def initialize(name, calories)
+  attr_accessor :flavor
+  def initialize(name, calories, flavor)
+    @flavor = flavor 
     @name = name
     @calories = calories
   end
@@ -14,15 +16,11 @@ class Desert
 end
 
 class JellyBean < Desert
-  attr_accessor :flavor
-  def initialize(flavor)
-    @flavor = flavor
-  end
   def delicious?
    @flavor != "black licorice"
      
   end
 end
 
-cake = JellyBean.new("black licorice")
+cake = JellyBean.new("Cake", 277, "black licorice")
 puts cake.delicious?
