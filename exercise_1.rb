@@ -8,8 +8,6 @@ def polindrome?(string)
  end
 end
 
-require "rubygems"
-require "active_support"
 polindrome?("A man, a plan, a canal -- Panama")
 polindrome?("")
 polindrome?("Абба")
