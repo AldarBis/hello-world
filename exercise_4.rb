@@ -1,20 +1,23 @@
 def combine_anagrams(words)
-  result = {}
+  res_hash = {}
   words.each do |word|
   word.downcase!
   key = word.split('').sort.join
-  if result.has_key?(key)
-    result[key].push(word)
+  if res_hash.has_key?(key)
+    res_hash[key].push(word)
   else
-    result[key] = [word]
+  
+    res_hash[key] = [word]
   end
 end
 
 
- 
-result.each do |k, v|
-  p v
+ res_array = []
+res_hash.each do |k, v|
+  res_array.push(v)
+  
 end
+p res_array
 end
 
 words =  ['cars', 'for', 'potatoes', 'racs', 'four', 'scar', 'creams', 'scream']
