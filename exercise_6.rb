@@ -8,7 +8,7 @@ class Desert
     @calories = calories
   end
   def healthy?
-     @calories < 200
+    @calories < 200
   end
   def delicious?
     true
@@ -17,8 +17,7 @@ end
 
 class JellyBean < Desert
   def delicious?
-   @flavor != "black licorice"
-     
+    @flavor != "black licorice" 
   end
 end
 
