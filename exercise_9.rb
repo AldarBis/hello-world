@@ -1,26 +1,26 @@
+module Pal
+  def palindrome?
+    string = self.to_s.downcase.delete("^a-z&&^а-я")
+    str_rev = string.reverse
+    if string == str_rev && !string.empty?
+      true
+    else
+      false
+    end
+  end
+  
+end
+
+
 class String 
-  def palindrome? 
-    str = self.downcase.delete("^a-z&&^а-я") 
-    str_rev = str.reverse 
-    if str == str_rev && !str.empty? 
-      puts "palindrome" 
-    else 
-      puts "No palindrome" 
-    end 
-  end 
+  include Pal
 end 
 
-module Enumerable 
-  def palindrome? 
-    str = self 
-    str_rev = str.reverse 
-    if str == str_rev && !str.empty? 
-      puts "palindrome" 
-    else 
-      puts "No palindrome" 
-    end 
-  end 
-end 
-
-"foo".palindrome? 
-[1,2,3,2,1].palindrome?
+module Enumerable
+  include Pal
+end
+ 
+p Enumerable.instance_methods
+p Enumerable.method_defined? :palindrome?
+p "Foo".palindrome? 
+p [1,2,3,2,1].palindrome?
