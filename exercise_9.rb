@@ -1,26 +1,35 @@
-module Pal
+module Palindrome
   def palindrome?
-    string = self.to_s.downcase.delete("^a-z&&^а-я")
+    string = self.to_s.downcase.delete("^a-z&&^а-я^1-9")
     str_rev = string.reverse
     if string == str_rev && !string.empty?
       true
     else
       false
     end
-  end
-  
+  end 
 end
-
-
-class String 
-  include Pal
-end 
 
 module Enumerable
-  include Pal
+  include Palindrome
 end
- 
-p Enumerable.instance_methods
-p Enumerable.method_defined? :palindrome?
+
+class Array
+  include Enumerable
+end
+  
+class String 
+  include Enumerable
+end 
+
+class NilClass
+  include Enumerable
+end
+
+
+
+p nil.palindrome? 
+p "Abba".palindrome?
 p "Foo".palindrome? 
 p [1,2,3,2,1].palindrome?
+p [1,2,3,3,3].palindrome?
