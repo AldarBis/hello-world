@@ -10,7 +10,6 @@ class CartesianProduct
  
   def each(&block)
     @arr_res.each(&block)
-    self
   end
 end
  
