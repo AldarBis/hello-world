@@ -1,15 +1,11 @@
+
+
+
 def combine_anagrams(words)
-  res_hash = {}
+  res_hash = words.group_by { |word|
+      key = word.split('').sort.join
+  }
   res_array = []
-  words.each do |word|
-  word.downcase!
-  key = word.split('').sort.join
-  if res_hash.has_key?(key)
-    res_hash[key].push(word)
-  else
-    res_hash[key] = [word]
-  end
-  end
   res_hash.each do |k, v|
   res_array.push(v)  
   end
