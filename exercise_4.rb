@@ -1,6 +1,3 @@
-
-
-
 def combine_anagrams(words)
   res_hash = words.group_by { |word|
       key = word.split('').sort.join
