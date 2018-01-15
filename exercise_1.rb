@@ -1,13 +1,15 @@
-def polindrome?(string)
-  string = string.downcase.delete("^a-z&&^а-я")
+def palindrome?(string)
+  string = string.to_s.downcase.delete("^a-z&&^а-я")
   str_rev = string.reverse
  if string == str_rev && !string.empty?
-  puts "Polindrome"
+   true
  else
-  puts "No polindrome"
+   false
  end
-end
+end 
 
-polindrome?("A man, a plan, a canal -- Panama")
-polindrome?("")
-polindrome?("Абба")
+
+palindrome?("A man, a plan, a canal -- Panama")
+palindrome?("")
+palindrome?("Абба")
+palindrome? nil
