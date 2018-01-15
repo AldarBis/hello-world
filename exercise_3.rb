@@ -16,7 +16,7 @@ def rps_game_winner(array)
   end 
   
   array.collect { |state|  
-    unless state[1] == "R" || state[1] == "P" || state[1] == "S"
+    if (state[1] =~ /[RPS]/) != 0
       raise NotSuchStrategyError
       next
     end
@@ -53,5 +53,5 @@ def rps_game_winner(array)
 	end
   end
  
-arr = [["Armando", "P"],["Dave", "S"]] 
+arr = [["Armando", "R"],["Dave", "R"]] 
 rps_game_winner(arr)
