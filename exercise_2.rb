@@ -2,7 +2,7 @@ def count_words(string)
   str = string.downcase.scan(/\w+/).sort
   hash = Hash.new(0)
   str.each {|n| hash[n] = str.count(n)}
-  puts hash
+  hash
 end
 
 count_words("Doo bee doo bee doo")
