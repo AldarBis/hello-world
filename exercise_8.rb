@@ -1,42 +1,48 @@
-class Class 
+module CustomAttrAccessor
   def attr_accessor_with_history(attr_name) 
-    attr_reader attr_name
-      def self.my_attr_writer(attr_name) 
-        @@arr = [nil]
-        check = 0
-        flag = false
-        define_method("#{attr_name}=") do |new_value|   
-	      if self != check && flag
-	        @@arr = [nil]
-	        flag = false
-	      else
-	        check = self
-	        flag = true
-	      end
-          instance_variable_set("@#{attr_name}", new_value) 
-          @@arr.push(instance_variable_get("@#{attr_name}")) 
-        end 
-      end 
-      define_method (:bar_history) do
-        print @@arr 
-      end  
-    my_attr_writer attr_name
+
+    attr_name = attr_name.to_s
+    attr_name_history = attr_name.to_s + "_history"
+    
+    self.class.send(:define_method, "#{attr_name_history}=".to_sym) do |value|
+      instance_variable_set("@#{attr_name_history}", value)
+    end
+
+    self.class.send(:define_method, attr_name_history.to_sym) do
+      instance_variable_get("@#{attr_name_history}")
+    end
+
+    self.class.send(:define_method, "#{attr_name}=".to_sym) do |value|
+      history = instance_variable_get("@#{attr_name_history}") || [nil]
+      history << value
+      instance_variable_set("@#{attr_name}", value)
+      instance_variable_set("@#{attr_name_history}", history)
+    end
+
+    self.class.send(:define_method, attr_name.to_sym) do
+      instance_variable_get("@#{attr_name}")
+    end
   end
+end
+
+class Foo
+  include CustomAttrAccessor
+
+  def initialize
+    attr_accessor_with_history :bar
+    attr_accessor_with_history :second_bar
+  end
+
 end 
 
-class Foo 
-  attr_accessor_with_history :bar 
-end 
+f = Foo.new
 
-f = Foo.new 
-f.bar = 3 
-f.bar = :wowzo 
-f.bar = 'boo!' 
-f.bar = 343
-f.bar_history 
+f.bar = 1
+f.bar = 10
 
-g = Foo.new 
-g.bar = 31 
-g.bar = 2 
-g.bar = 'Caramba!'
-g.bar_history
+f.second_bar = 12
+f.second_bar = 13
+f.second_bar = 23
+
+p f.bar_history
+p f.second_bar_history
