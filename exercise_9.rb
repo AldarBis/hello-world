@@ -1,8 +1,7 @@
-
 module Palindrome
   def palindrome?
     string = self.to_s.downcase.delete("^a-z&&^а-я^1-9")
-    str_rev = string.reverse
+	  str_rev = string.reverse
     string == str_rev && !string.empty?
   end 
 end
