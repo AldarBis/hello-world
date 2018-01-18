@@ -2,10 +2,7 @@ def combine_anagrams(words)
   res_hash = words.group_by { |word|
       key = word.split('').sort.join
   }
-  res_array = []
-  res_hash.each do |k, v|
-  res_array.push(v)  
-  end
+  res_hash.values
 end
 
 words =  ['cars', 'for', 'potatoes', 'racs', 'four', 'scar', 'creams', 'scream']
