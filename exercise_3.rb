@@ -29,8 +29,8 @@ def rps_game_winner(array)
   
   case res1
     when "R" then res2 == 'P' ? player2: player1
-	when "P" then res2 == 'S' ? player2: player1
-	when "S" then res2 == 'R' ? player2: player1
+    when "P" then res2 == 'S' ? player2: player1
+    when "S" then res2 == 'R' ? player2: player1
   end
 end
  
