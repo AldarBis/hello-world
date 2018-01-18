@@ -1,8 +1,14 @@
+
 module Currency
-  puts "Dol currency"
-  $dol = gets.chomp.to_f
-  puts "Eur currency"
-  $eur = gets.chomp.to_f
+  h = Hash.new
+  print "dollar "
+  h["$"] = gets.chomp.to_f
+  print "euro "
+  h["€"] = gets.chomp.to_f
+  
+  $dol = h["$"]
+  $eur = h["€"]
+  
   def dollar
    array = [$dol/$eur, $dol, 1, self]
   end
