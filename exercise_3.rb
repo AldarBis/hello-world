@@ -22,36 +22,17 @@ def rps_game_winner(array)
     end
   }
   
-  case array[0][1]
-    when "R"
-	  case array[1][1]
-	    when "R"
-		  print array[0]
-	    when "P"
-		  print array[1]
-	    when "S"
-		  print array[0]
-	  end
-	when "P"
-	  case array[1][1]
-	    when "R"
-		  print array[0]
-	    when "P"
-		  print array[0]
-	    when "S"
-		  print array[1]
-	  end
-	when "S"
-	  case array[1][1]
-	    when "R"
-		  print array[1]
-	    when "P"
-		  print array[0]
-	    when "S"
-		  print array[0]
-	  end
-	end
+  player1 = array[0]
+  player2 = array[1]
+  res1 = array[0][1]
+  res2 = array[1][1]
+  
+  case res1
+    when "R" then res2 == 'P' ? player2: player1
+	when "P" then res2 == 'S' ? player2: player1
+	when "S" then res2 == 'R' ? player2: player1
   end
+end
  
-arr = [["Armando", "R"],["Dave", "R"]] 
-rps_game_winner(arr)
+arr = [["Armando", "S"],["Dave", "R"]] 
+p rps_game_winner(arr)
