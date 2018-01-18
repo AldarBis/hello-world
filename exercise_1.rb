@@ -1,15 +1,11 @@
 def palindrome?(string)
   string = string.to_s.downcase.delete("^a-z&&^а-я")
   str_rev = string.reverse
- if string == str_rev && !string.empty?
-   true
- else
-   false
- end
+  string == str_rev && !string.empty?
 end 
 
 
-palindrome?("A man, a plan, a canal -- Panama")
-palindrome?("")
-palindrome?("Абба")
-palindrome? nil
+p palindrome?("A man, a plan, a canal -- Panama")
+p palindrome?("")
+p palindrome?("Абба")
+p palindrome? nil
