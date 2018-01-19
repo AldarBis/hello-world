@@ -1,26 +1,19 @@
 
 module Currency
-  h = Hash.new
-  print "dollar "
-  h["$"] = gets.chomp.to_f
-  print "euro "
-  h["€"] = gets.chomp.to_f
-  
-  $dol = h["$"]
-  $eur = h["€"]
+  $h = {"$" => 32.36, "€" => 43.61}
   
   def dollar
-   array = [$dol/$eur, $dol, 1, self]
+   array = [$h["$"]/$h["€"], $h["$"], 1, self]
   end
 	alias :dollars :dollar
 	
   def euro
-   array = [1, $eur, $eur/$dol, self]
+   array = [1, $h["€"], $h["€"]/$h["$"], self]
   end
     alias :euros :euro
   
   def ruble
-    array = [1/$eur, 1, 1/$dol, self]
+    array = [1/$h["€"], 1, 1/$h["$"], self]
 	
   end
   alias :rubles :ruble
