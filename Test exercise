@@ -1,0 +1,88 @@
+  class Robot
+    attr_accessor :posit, :instruct
+	
+	def initialize(posit, instruct)
+	  @posit = posit
+	  @instruct = instruct
+	end
+  end
+  
+  class Plato
+    attr_accessor :size
+	
+	def initialize(size)
+	  @size = size
+	end
+  end
+  
+  def explore(robots, plato_size)
+    robots.each {|robot|
+	card_dir = ["N", "E", "S", "W"]
+	crash_preserve = robots.map {|el| el.posit.first(2) } - [robot.posit.first(2)]
+	
+    robot.instruct.each { |elem|
+  
+    case elem
+	
+      when "R"
+        robot.posit[2] = card_dir.reverse[card_dir.reverse.index(robot.posit[2])-1]
+		
+      when "L"
+        robot.posit[2] = card_dir[card_dir.index(robot.posit[2])-1]
+		
+      when "M"
+	  
+        case robot.posit[2]
+  
+          when "W"
+		    if crash_preserve.include?([robot.posit[0]-1, robot.posit[1]])
+		      raise "Опасность! Столкновение с другим роботом"
+			  else
+	        robot.posit[0] -= 1
+		  	end
+          when "E"
+		    if crash_preserve.include?([robot.posit[0]+1, robot.posit[1]])
+		      raise "Опасность! Столкновение с другим роботом"
+			else
+              robot.posit[0] += 1
+			end
+          when "S"
+		    if crash_preserve.include?([robot.posit[0], robot.posit[1]-1])
+		      raise "Опасность! Столкновение с другим роботом"
+			else
+              robot.posit[1] -= 1
+			end
+          when "N"
+		    if crash_preserve.include?([robot.posit[0], robot.posit[1]+1])
+		      raise "Опасность! Столкновение с другим роботом"
+			else
+              robot.posit[1] += 1
+			end
+        end
+    end
+
+    unless robot.posit[0].between?(0, plato_size[0]) && robot.posit[1].between?(0, plato_size[1])
+      raise "Опасность! Вы вышли за пределы плато"
+    end
+	} 
+  }	
+    p robots
+  end
+  
+  puts "Введите размерность плато"
+  size = gets.split.map(&:to_i)
+  plato = Plato.new(size)
+  puts "Введите количество роботов"
+  count = gets.chomp.to_i
+  robots = []
+    for i in 1..count
+    puts "Задайте начальные координаты для робота №" + i.inspect
+	  posit = gets.upcase.split
+	    2.times do |x|
+        posit[x] = posit[x].to_i
+      end
+	  puts "Задайте инструкции для робота №" + i.inspect
+	  instruct = gets.chomp.upcase.split(//)
+	  robots.push(Robot.new(posit, instruct))	
+    end
+  explore(robots, plato.size)
